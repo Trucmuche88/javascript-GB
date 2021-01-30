@@ -1,0 +1,106 @@
+<script>
+
+/*
+
+1/
+
+    var a = 1, b = 1, c, d;
+    c = ++a; alert(c);           c = a + 1 = 2
+    d = b++; alert(d);           d = b (before increment) = 1  
+    c = (2+ ++a); alert(c);      c = (a + two increment) + 2 = 5
+    d = (2+ b++); alert(d);      d = b (before second increment) + 2 = 4
+    alert(a);                    a + two increment = 3
+    alert(b);                    b + two increment = 3
+
+2/ 
+    
+    var a = 2;
+    var x = 1 + (a *= 2);    x = 1 + (2 * 2)
+                             x = 1 + 4
+                             x = 5
+
+3/
+
+    let a = Math.floor(Math.random() *20 -10)
+    let b = Math.floor(Math.random() *20 -10)
+
+    if (a >= 0 && b >= 0){
+
+        console.log('substraction');
+        console.log(a - b);
+
+    } else if (a < 0 && b < 0) {
+
+        console.log('multiplication');
+        console.log(a * b);
+
+    } else {
+
+        console.log('sum');
+        console.log(a + b)
+    }
+
+5/
+
+    let a = Math.floor(Math.random() *10 +1)
+    let b = Math.floor(Math.random() *10 +1)
+    
+    function sum (a, b) {
+
+        return a + b;
+        
+    }
+        console.log(sum(a,b));
+
+
+    function sub (a, b) {
+
+        return a - b;
+
+    }
+        console.log(sub(a,b));
+
+
+    function mult (a, b) {
+
+        return a * b;
+
+    }
+
+        console.log(mult(a,b));
+
+
+    function div (a, b) {
+
+        return a / b;
+
+    }
+        console.log(div(a,b));
+
+6/
+*/
+    function mathOperation(a, b, operation) {
+        
+        switch (operation) {
+
+            case 'addition':
+                return a + b;
+
+            case 'substraction':
+                return a - b;
+
+            case 'multiplication':
+                return a * b;
+            
+            case 'division':
+                return a / b;
+
+            default:
+                alert('Что-то пошло не так!');
+                return false;
+
+        }
+        
+    }
+    
+</script>
