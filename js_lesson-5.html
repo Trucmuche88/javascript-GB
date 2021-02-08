@@ -1,0 +1,122 @@
+<div></div>
+
+
+
+<script>
+
+    let table = document.createElement("table");
+    let tr, td, i;
+
+
+    let pieces = {
+        1: {
+            1:  "♜", 
+            2:  "♞", 
+            3:  "♝", 
+            4:  "♛", 
+            5:  "♚", 
+            6:  "♝",
+            7:  "♞",
+            8:  "♜"
+        },
+        2: {
+            1:  "♟",
+            2:  "♟",
+            3:  "♟",
+            4:  "♟", 
+            5:  "♟", 
+            6:  "♟",
+            7:  "♟",
+            8:  "♟"
+        },
+        7: {
+            1:  "♙",
+            2:  "♙",
+            3:  "♙",
+            4:  "♙", 
+            5:  "♙", 
+            6:  "♙",
+            7:  "♙",
+            8:  "♙"
+        },
+        8: {
+            1:  "♖",  
+            2:  "♘", 
+            3:  "♗", 
+            4:  "♕", 
+            5:  "♔",
+            6:  "♗",
+            7:  "♘",
+            8:  "♖"
+        }
+    };
+
+    
+    let alpha = {
+
+        1: "A",
+        2: "B",
+        3: "C",
+        4: "D",
+        5: "E",
+        6: "F",
+        7: "I",
+        8: "J"        
+    };
+
+    for(i = 0; i < 10; i++) { 
+        tr = document.createElement("tr");
+        table.append(tr);
+        
+     
+        for(let j = 0; j < 10; j++) {
+
+            table.style.borderCollapse = "collapse";
+            td = document.createElement("td");
+            td.height=50;
+            td.width=50;
+            td.innerText = " "; 
+            td.align = "center"; 
+            td.style.fontSize = "20px";
+            
+          // angles 
+          if ((i == 0 || i == 9) && (j == 0 || j == 9)) {}
+        
+          // columns
+          else if (i == 0 || i == 9) {
+            td.innerText = alpha[j];
+
+            if (i == 0) { 
+              td.style.transform = "rotate(180deg)";
+            }
+
+          // lines 
+          } else if (j == 0 || j == 9) {
+            td.innerText = i;
+
+
+            if (j == 9) {
+              td.style.transform = "rotate(180deg)"; 
+            }
+
+          } else {
+            td.style.backgroundColor = (j % 2 == i % 2) ? "beige" : "brown";
+
+            
+            if (pieces[i] != undefined && pieces[i][j] != undefined) {
+              td.innerText = pieces[i][j];
+            
+              td.style.fontSize = "32px"; 
+            }
+        }
+        
+            tr.append(td);
+
+        }
+    }
+
+    console.log(table);
+    document.getElementsByTagName("div")[0].append(table);
+
+
+</script>
