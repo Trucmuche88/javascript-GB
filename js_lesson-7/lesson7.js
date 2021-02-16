@@ -67,7 +67,8 @@ function startGame() {
     respawn();//создали змейку
 
     snake_timer = setInterval(move, SNAKE_SPEED);//каждые 200мс запускаем функцию move
-    setTimeout(createFood, 5000);
+    setTimeout(createFood, 0);
+    setInterval(createTrap, 5000);
 }
 
 /**
@@ -111,15 +112,27 @@ function move() {
 
     // Определяем новую точку
     if (direction == 'x-') {
+        if (coord_x === 0) {
+            coord_x = 20;
+        }
         new_unit = document.getElementsByClassName('cell-' + (coord_y) + '-' + (coord_x - 1))[0];
     }
     else if (direction == 'x+') {
+        if (coord_x === 19) {
+            coord_x = -1;
+        }
         new_unit = document.getElementsByClassName('cell-' + (coord_y) + '-' + (coord_x + 1))[0];
     }
     else if (direction == 'y+') {
+        if (coord_y === 0) {
+            coord_y = 20;
+        }
         new_unit = document.getElementsByClassName('cell-' + (coord_y - 1) + '-' + (coord_x))[0];
     }
     else if (direction == 'y-') {
+        if (coord_y === 19) {
+            coord_y = -1;
+        }
         new_unit = document.getElementsByClassName('cell-' + (coord_y + 1) + '-' + (coord_x))[0];
     }
 
@@ -131,7 +144,6 @@ function move() {
         // Добавление новой части змейки
         new_unit.setAttribute('class', new_unit.getAttribute('class') + ' snake-unit');
         snake.push(new_unit);
-
         // Проверяем, надо ли убрать хвост
        
 	   if (!haveFood(new_unit)) {
@@ -142,6 +154,12 @@ function move() {
             // удаляем хвост
             removed.setAttribute('class', classes[0] + ' ' + classes[1]);
         }
+
+        if (haveTrap(new_unit)) {
+            alert("You got poisoned!");
+            finishTheGame();
+        }
+
     }
     else {
         finishTheGame();
@@ -177,8 +195,16 @@ function haveFood(unit) {
         createFood();
 
         score++;
+
+        document.getElementById('score').innerHTML = score;
     }
     return check;
+}
+
+function haveTrap(unit) {
+    var unit_classes = unit.getAttribute('class').split(' ');
+
+    return unit_classes.includes('trap-unit');
 }
 
 /**
@@ -204,6 +230,33 @@ function createFood() {
 
             food_cell.setAttribute('class', classes + 'food-unit');
             foodCreated = true;
+        }
+    }
+}
+
+/**
+ * Создание еды
+ */
+function createTrap() {
+    var trapCreated = false;
+
+    while (!trapCreated) { //пока ловушку не создали
+        // рандом
+        var trap_x = Math.floor(Math.random() * FIELD_SIZE_X);
+        var trap_y = Math.floor(Math.random() * FIELD_SIZE_Y);
+
+        var trap_cell = document.getElementsByClassName('cell-' + trap_y + '-' + trap_x)[0];
+        var trap_cell_classes = trap_cell.getAttribute('class').split(' ');
+
+        // проверка на змейку
+        if (!trap_cell_classes.includes('snake-unit')) {
+            var classes = '';
+            for (var i = 0; i < trap_cell_classes.length; i++) {
+                classes += trap_cell_classes[i] + ' ';
+            }
+
+            trap_cell.setAttribute('class', classes + 'trap-unit');
+            trapCreated = true;
         }
     }
 }
@@ -245,7 +298,8 @@ function changeDirection(e) {
 function finishTheGame() {
     gameIsRunning = false;
     clearInterval(snake_timer);
-    alert('Вы проиграли! Ваш результат: ' + score.toString());
+    alert("Game Over");
+    refreshGame();
 }
 
 /**
