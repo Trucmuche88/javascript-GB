@@ -1,0 +1,29 @@
+<script>
+
+    let n = +prompt("Enter a number between 0 and 999");
+
+    let obj = {};
+
+    f(n);
+    console.log(obj);
+
+    function f(n) {
+        let ed = n % 10;
+        let dec = Math.floor((n / 10) %10);
+        let cen = Math.floor((n / 100) %10);
+
+        obj.cen = cen;
+        obj.dec = dec;
+        obj.ed = ed;
+
+        
+    }
+        if (n != isNaN && n < 999) {
+                    f(n);
+                }
+        
+                else {
+                    alert ("Enter a number between 0 and 999!");
+                }
+        
+</script>
